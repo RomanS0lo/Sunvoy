@@ -19,11 +19,7 @@ function makeRequest(path, method = 'GET', data = null) {
         
         if (method == 'POST') {
             options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-            if (data) {
-                options.headers['Content-Length'] = data.length;
-            } else {
-                options.headers['Content-Length'] = 0;
-            }
+            options.headers['Content-Length'] = data ? data.length : 0;
         }
         
         const req = https.request(options, (res) => {
@@ -172,7 +168,6 @@ async function main() {
     
     await fs.writeFile('users.json', JSON.stringify(output, null, 2));
     console.log(`\nSuccess! Saved ${output.length} users to users.json`);
-    console.log('\nChallenge completed! ✓');
 }
 
 main().catch(err => {
